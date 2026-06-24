@@ -1,5 +1,11 @@
+from itertools import count
+
 class Task:
+
+    _id_counter = count(1)
+
     def __init__(self, task, category = 'None', priority = 3, status = False):
+        self.id = next(self._id_counter)
         self.task = task
         self.category = category
         self.priority = priority
@@ -17,8 +23,9 @@ class Task:
     def complete(self):
         self.status = True
 
-    def to_json(self):
+    def to_dict(self):
         task_json = {
+            'id': self.id,
             'name': self.task,
             'category': self.category,
             'priority': self.priority,
