@@ -1,5 +1,6 @@
 import json
 from objects import Task
+from pathlib import Path
 
 def back2_tasks(my_list):
     new_list = []
@@ -46,6 +47,7 @@ def write_task(task, file_path):
     try:
         with open(file_path, 'r') as file:
             db = json.load(file)
+
         for task in db['tasks']:
             if task['id'] > highest_id:
                 highest_id = task['id']

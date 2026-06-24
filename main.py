@@ -6,7 +6,8 @@ from functions import back2_tasks, print_tasks, write_task, read_tasks
 import typer
 
 # json file path
-file_path = '../../data/data.json'
+file_path = 'data/data.json'
+username = 'arm'
 
 app = typer.Typer()
 
@@ -46,6 +47,16 @@ def change_priority(task: str, priority: int):
 
     with open(file_path, 'w') as file:
         json.dump(db, file)
+
+@app.command()
+def init():
+    db = {'User': username, 'tasks': []}
+    try:
+        with open(file_path, 'w') as file:
+            json.dump(db, file, indent=4)
+        print("Structure Loaded")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 if __name__ == '__main__':
     app()

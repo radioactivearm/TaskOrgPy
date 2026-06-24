@@ -8,6 +8,7 @@ __pycache__/
 
 # json data file
 data.json
+TaskOrgPy_icon.png
 
 # Distribution / packaging
 .Python
