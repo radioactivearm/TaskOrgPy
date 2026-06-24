@@ -10,16 +10,19 @@ file_path = '../../data/data.json'
 
 app = typer.Typer()
 
+# add command adds a task to the json file
 @app.command()
-def add(task: str, category: str = 'none', priority: int = 3, status: bool = False):
-    new_task = Task(task, category, priority, status)
+def add(task: str, priority: int, category: str = 'none', status: bool = False):
+    new_task = Task(task, priority, category, status)
     write_task(new_task, file_path)
 
+# tasks command lists out the current tasks
 @app.command()
 def tasks():
     tasks_json = read_tasks(file_path)
     print_tasks(tasks_json)
 
+# a command to change the status of task to True
 @app.command()
 def complete(task: str):
     with open(file_path, 'r') as file:
@@ -28,6 +31,18 @@ def complete(task: str):
     for i in 0, len(db['tasks']) -1:
         if db['tasks'][i]['name'] == task:
             db['tasks'][i]['status'] = True
+
+    with open(file_path, 'w') as file:
+        json.dump(db, file)
+
+@app.command()
+def change_priority(task: str, priority: int):
+    with open(file_path, 'r') as file:
+        db = json.load(file)
+
+    for i in 0, len(db['tasks']) -1:
+        if db['tasks'][i]['name'] == task:
+            db['tasks'][i]['priority'] = priority
 
     with open(file_path, 'w') as file:
         json.dump(db, file)

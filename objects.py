@@ -1,11 +1,8 @@
-from itertools import count
-
 class Task:
 
-    _id_counter = count(1)
 
-    def __init__(self, task, category = 'None', priority = 3, status = False):
-        self.id = next(self._id_counter)
+    def __init__(self, task, priority = 3, category = 'None', status = False, false_id=0):
+        self.id = false_id
         self.task = task
         self.category = category
         self.priority = priority
