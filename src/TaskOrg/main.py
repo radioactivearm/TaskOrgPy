@@ -1,6 +1,8 @@
+import json
 from objects import Task
+from functions import print_json
 
 task1 = Task("Create a Json")
+json1 = task1.to_json()
 
-task1.status = True
-task1.print()
+print_json(json1)
