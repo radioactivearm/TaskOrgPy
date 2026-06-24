@@ -1,6 +1,5 @@
 import json
 from objects import Task
-from pathlib import Path
 
 def back2_tasks(my_list):
     new_list = []

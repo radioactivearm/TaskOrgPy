@@ -2,12 +2,10 @@ import json
 from typing import Any
 
 from objects import Task
-from functions import back2_tasks, print_tasks, write_task, read_tasks
+from functions import print_tasks, write_task, read_tasks
 import typer
 
-# json file path
-file_path = 'data/data.json'
-username = 'arm'
+
 
 app = typer.Typer()
 
@@ -41,7 +39,7 @@ def change_priority(task: str, priority: int):
     with open(file_path, 'r') as file:
         db = json.load(file)
 
-    for i in 0, len(db['tasks']) -1:
+    for i in range(0, len(db['tasks'])):
         if db['tasks'][i]['name'] == task:
             db['tasks'][i]['priority'] = priority
 
@@ -57,6 +55,32 @@ def init():
         print("Structure Loaded")
     except Exception as e:
         print(f"An error occurred: {e}")
+
+
+@app.command()
+def clear():
+    with open(file_path, 'r') as file:
+        db = json.load(file)
+
+    for i in range(0, len(db['tasks'])):
+        if db['tasks'][i]['status']:
+            db['tasks'].pop(i)
+
+    with open(file_path, 'w') as file:
+        json.dump(db, file)
+
+
+@app.command()
+def clear_all():
+    with open(file_path, 'r') as file:
+        db = json.load(file)
+
+    for i in range(0, len(db['tasks'])):
+        db['tasks'].pop()
+
+    with open(file_path, 'w') as file:
+        json.dump(db, file)
+
 
 if __name__ == '__main__':
     app()
