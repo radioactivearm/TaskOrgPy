@@ -1,6 +1,6 @@
 import json
 from objects import Task
-from functions import print_json, write_task, read_tasks
+from functions import print_json, print_tasks, write_task, read_tasks
 import typer
 
 # json file path
@@ -16,7 +16,7 @@ def add(task: str, category: str = 'none', priority: int = 3, status: bool = Fal
 @app.command()
 def tasks():
     tasks_json = read_tasks(file_path)
-    print_json(tasks_json)
+    print_tasks(tasks_json)
 
 if __name__ == '__main__':
     app()
